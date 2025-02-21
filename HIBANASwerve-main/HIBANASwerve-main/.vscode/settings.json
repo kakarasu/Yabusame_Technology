@@ -1,0 +1,11 @@
+{
+    "editor.multiCursorModifier": "ctrlCmd",
+    "vsintellicode.java.completionsEnabled": true,
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-23",
+            "path": "C:\\Program Files\\Java\\jdk-23",
+            "default": true
+        }
+    ]
+}

@@ -12,6 +12,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
  * Auto Balance command using a simple PID controller. Created by Team 3512
  * <a href="https://github.com/frc3512/Robot-2023/blob/main/src/main/java/frc3512/robot/commands/AutoBalance.java">...</a>
  */
+// 簡単なPIDコントローラーを使用した自動バランスコマンド。Team 3512によって作成されました。
 public class AutoBalanceCommand extends Command
 {
 
@@ -26,12 +27,14 @@ public class AutoBalanceCommand extends Command
     controller.setSetpoint(0.0);
     // each subsystem used by the command must be passed into the
     // addRequirements() method (which takes a vararg of Subsystem)
+    // コマンドで使用される各サブシステムは、addRequirements()メソッドに渡す必要があります（Subsystemの可変引数を取ります）
     addRequirements(this.swerveSubsystem);
   }
 
   /**
    * The initial subroutine of a command.  Called once when the command is initially scheduled.
    */
+  // コマンドの初期サブルーチン。コマンドが最初にスケジュールされたときに一度だけ呼び出されます。
   @Override
   public void initialize()
   {
@@ -42,6 +45,7 @@ public class AutoBalanceCommand extends Command
    * The main body of a command.  Called repeatedly while the command is scheduled. (That is, it is called repeatedly
    * until {@link #isFinished()}) returns true.)
    */
+  // コマンドのメインボディ。コマンドがスケジュールされている間、繰り返し呼び出されます。（つまり、{@link #isFinished()}がtrueを返すまで繰り返し呼び出されます。）
   @Override
   public void execute()
   {
@@ -65,6 +69,8 @@ public class AutoBalanceCommand extends Command
    *
    * @return whether this command has finished.
    */
+  // このコマンドが終了したかどうかを返します。一度コマンドが終了すると（このメソッドがtrueを返すことによって示されます）、スケジューラは{@link #end(boolean)}メソッドを呼び出します。
+  // falseを返すと、コマンドは自動的に終了しなくなります。それでも手動でキャンセルされたり、他のコマンドによって中断されたりすることがあります。このコマンドを常にtrueを返すようにハードコーディングすると、コマンドは一度実行され、すぐに終了します。このような操作には{@link edu.wpi.first.wpilibj2.command.InstantCommand InstantCommand}を使用することをお勧めします。
   @Override
   public boolean isFinished()
   {
@@ -78,6 +84,8 @@ public class AutoBalanceCommand extends Command
    *
    * @param interrupted whether the command was interrupted/canceled
    */
+  // コマンドが終了したときに取るべきアクション。コマンドが正常に終了したとき（つまり、{@link #isFinished()}がtrueを返すとき）または中断/キャンセルされたときに呼び出されます。ここでは、コマンドで使用されていたモーターを停止するなどの未処理の部分をまとめることができます。
+  // @param interrupted コマンドが中断/キャンセルされたかどうか
   @Override
   public void end(boolean interrupted)
   {
