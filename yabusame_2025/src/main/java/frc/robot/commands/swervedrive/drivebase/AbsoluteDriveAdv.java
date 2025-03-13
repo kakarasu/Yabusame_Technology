@@ -7,6 +7,8 @@ package frc.robot.commands.swervedrive.drivebase;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.RobotState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -75,6 +77,29 @@ public class AbsoluteDriveAdv extends Command
   @Override
   public void execute()
   {
+    //自動モードの動作コード
+    if(RobotState.isAutonomous()){
+      double remainingTime = Timer.getMatchTime();
+      //残り時間が3秒以下の時、ロボットを前進させる(適宜調整)
+      if(remainingTime <= 3.0){
+        //エラーコードで埋もれるのを防ぐために10回繰り返し出力
+        //for(int i = 0; i < 10; i++)
+        //{
+        //  System.out.println("swervedrive_START"+ remainingTime+"s");
+        //}
+        swerve.drive(new Translation2d(1.0, 0.0), 0.0, true);
+      }
+      else{
+        //エラーコードで埋もれるのを防ぐために10回繰り返し出力
+        //for(int i = 0; i < 10; i++)
+        //{
+        //  System.out.println("swervedrive_STOP"+ remainingTime+"s");
+        //}
+        swerve.drive(new Translation2d(0.0, 0.0), 0.0, true);
+      }
+      return;
+    }
+    //手動モードの動作コード
     double headingX = 0;
     double headingY = 0;
 
