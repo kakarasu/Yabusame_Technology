@@ -31,7 +31,7 @@ public class Robot extends TimedRobot
 {
 
   private static Robot   instance;
-  private        Command m_autonomousCommand;
+  //private        Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
@@ -135,10 +135,10 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null)
-    {
-      m_autonomousCommand.cancel();
-    }
+    //if (m_autonomousCommand != null)
+    //{
+    //  m_autonomousCommand.cancel();
+    //}
     m_robotContainer.setDriveMode();
     m_robotContainer.setMotorBrake(true);
 

@@ -1,0 +1,14 @@
+Yabusame_Technology\yabusame_2025\src\main\deploy\swerve\neo\modulesの中に足回りの設定ファイルがあります
+各ファイルの内容を確認し、問題がある箇所を編集してください
+
+Yabusame_Technology\yabusame_2025\src\main\java\frc\robot\commands\swervedrive\drivebase\AbsoluteDriveAdv.javaの中80行目～114行目に自動で足回りを動作させるプログラムがあります
+コメントの通りに値を適宜編集してください。
+なお、無効化する場合、forward_drive_time_thresholdを0未満にしてください
+全ての箇所にコメントがあるため、簡単に変更ができると思います
+
+Yabusame_Technology\yabusame_2025\src\main\java\frc\robot\Robot.javaの中に基本的なアーム等のコードが書かれています
+・50行目から51行目にsparkMaxの設定(CANIDの設定、モータの設定を実行しているだけです)
+・teleopInit()で手動モードで使用するものを初期化しています
+　　内容(明日書く)
+・teleopPeriodic()で手動モード時20ms置きに実行される関数です
+　　内容(明日書く)
