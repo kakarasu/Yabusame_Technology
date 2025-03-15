@@ -7,8 +7,12 @@ Yabusame_Technology\yabusame_2025\src\main\java\frc\robot\commands\swervedrive\d
 全ての箇所にコメントがあるため、簡単に変更ができると思います
 
 Yabusame_Technology\yabusame_2025\src\main\java\frc\robot\Robot.javaの中に基本的なアーム等のコードが書かれています
-・50行目から51行目にsparkMaxの設定(CANIDの設定、モータの設定を実行しているだけです)
-・teleopInit()で手動モードで使用するものを初期化しています
+・51行目から52行目にsparkMaxの設定(CANIDの設定、モータの設定を実行しているだけです)
+・autonomousInit()で手動モードで使用するものを初期化しています(モータ等の初期化処理を行っています)
+　　内容(明日書く)
+・autonomousPeriodic()で手動モード時20ms置きに実行される関数です
+　　内容(明日書く)
+・teleopInit()で手動モードで使用するものを初期化しています(モータ等の初期化処理を行っています)
 　　内容(明日書く)
 ・teleopPeriodic()で手動モード時20ms置きに実行される関数です
 　　内容(明日書く)

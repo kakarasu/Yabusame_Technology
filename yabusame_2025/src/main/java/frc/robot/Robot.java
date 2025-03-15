@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.io.File;
@@ -47,9 +48,11 @@ public class Robot extends TimedRobot
     return instance;
   }
 
-  private SparkMax intake=new SparkMax(17, SparkMax.MotorType.kBrushless);
-  private SparkMax rollerOutTop=new SparkMax(16, SparkMax.MotorType.kBrushless);
-  private SparkMax rollerOutBottom=new SparkMax(18, SparkMax.MotorType.kBrushless);
+  private SparkMax right_arm=new SparkMax(17, SparkMax.MotorType.kBrushless);
+  private SparkMax left_arm=new SparkMax(16, SparkMax.MotorType.kBrushless);
+  //private SparkMax intake=new SparkMax(17, SparkMax.MotorType.kBrushless);
+  //private SparkMax rollerOutTop=new SparkMax(16, SparkMax.MotorType.kBrushless);
+  //private SparkMax rollerOutBottom=new SparkMax(18, SparkMax.MotorType.kBrushless);
   private GenericHID controller = new GenericHID(0);
   /**
    * This function is run when the robot is first started up and should be used for any initialization code.
@@ -110,7 +113,8 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    //m_robotContainer.setMotorBrake(true);
+    m_robotContainer.setDriveMode();
+    m_robotContainer.setMotorBrake(true);
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     //// schedule the autonomous command (example)
     //if (m_autonomousCommand != null)
@@ -150,21 +154,44 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
+//############################################################################### 編集箇所 (手動モード アーム) ###############################################################################
+    String arm_output_data = "";//スマートダッシュボードにアームのデータを送信するための変数
+    //コントローラーの△ボタンを押すとアームが上がる
+    if(controller.getRawButton(4)){
+      right_arm.set(1.0);
+      left_arm.set(-1.0);
+      arm_output_data = "arm_forward_rotation";
+    }
+    //コントローラーの×ボタンを押すとアームが下がる
+    else if(controller.getRawButton(3)){
+      right_arm.set(-1.0);
+      left_arm.set(1.0);
+      arm_output_data = "arm_backward_rotation";
+    }
+    //それ以外の場合、停止
+    else{
+      right_arm.set(0.0);
+      left_arm.set(0.0);
+      arm_output_data = "arm_stop";
+    }
+    //スマートダッシュボードにアームのデータを送信
+    SmartDashboard.putString("arm_data", arm_output_data);
+//############################################################################### 編集箇所ここまで (編集者:池田) ###############################################################################
     //Amp -0.05 Bottom 0.4 Top
     //IntakeSource 0.4 Bottom, -0.4
-    intake.set(controller.getRawButton(5) ? -0.2 : (controller.getRawButton(6) ? 0.1 : 0));
-    if (controller.getPOV() == 0){
-      rollerOutBottom.set(-0.05);
-      rollerOutTop.set(0.4);
-    }
-    else if (controller.getPOV() == 90){
-      rollerOutBottom.set(0.4);
-      rollerOutTop.set(-0.4);
-    }
-    else{
-      rollerOutBottom.set(0);
-      rollerOutTop.set(0);
-    }
+    //intake.set(controller.getRawButton(5) ? -0.2 : (controller.getRawButton(6) ? 0.1 : 0));
+    //if (controller.getPOV() == 0){
+    //  rollerOutBottom.set(-0.05);
+    //  rollerOutTop.set(0.4);
+    //}
+    //else if (controller.getPOV() == 90){
+    //  rollerOutBottom.set(0.4);
+    //  rollerOutTop.set(-0.4);
+    //}
+    //else{
+    //  rollerOutBottom.set(0);
+    //  rollerOutTop.set(0);
+    //}
   }
 
   @Override
