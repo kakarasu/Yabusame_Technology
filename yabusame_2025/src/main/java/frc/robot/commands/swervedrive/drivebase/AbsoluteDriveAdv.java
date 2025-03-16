@@ -80,35 +80,30 @@ public class AbsoluteDriveAdv extends Command
 //############################################################################### 編集箇所 (自動モード 足回り) ###############################################################################
     //自動モードの動作コード
     if(RobotState.isAutonomous()){
-      //スマートダッシュボードに表示するための変数
-      String SmartDashboard_output_data = "";
-      //残り時間を取得
+      //自動モードの残り時間を取得
       double remainingTime = Timer.getMatchTime();
       //自動モードの残り時間が`forward_drive_time_threshold`秒以下の場合、ロボットを前進させる
       // ロボットを前進させるタイミングを調整するためのパラメータ(適宜調整してください)
-      double forward_drive_time_threshold = 3.0;
+      double forward_drive_time_threshold = 3.0;//3秒
       if(remainingTime <= forward_drive_time_threshold && remainingTime >= 0.0){
-        //エラーコードで埋もれるのを防ぐために10回繰り返し出力
-        //for(int i = 0; i < 10; i++)
+        //エラーコードで埋もれるのを防ぐために100回繰り返し出力
+        //for(int i = 0; i < 100; i++)
         //{
         //  System.out.println("swervedrive_START"+ remainingTime+"s");
         //}
-        SmartDashboard_output_data = "swervedrive_START"+ remainingTime+"Seconds";
         //前進(方向が間違っている場合は、x,yの値を調整してください)
         swerve.drive(new Translation2d(1.0, 0.0), 0.0, true);
       }
       else{
-        //エラーコードで埋もれるのを防ぐために10回繰り返し出力
-        //for(int i = 0; i < 10; i++)
+        //エラーコードで埋もれるのを防ぐために100回繰り返し出力
+        //for(int i = 0; i < 100; i++)
         //{
         //  System.out.println("swervedrive_STOP"+ remainingTime+"s");
         //}
-        SmartDashboard_output_data = "swervedrive_STOP"+ remainingTime+"Seconds";
         //停止
         swerve.drive(new Translation2d(0.0, 0.0), 0.0, true);
       }
       //スマートダッシュボードに表示
-      SmartDashboard.putString("Automatic_swervedrive", SmartDashboard_output_data);
       return;
     }
 //############################################################################### 編集箇所ここまで (編集者:池田) ###############################################################################

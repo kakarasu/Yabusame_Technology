@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.io.File;
@@ -155,27 +154,21 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
 //############################################################################### 編集箇所 (手動モード アーム) ###############################################################################
-    String arm_output_data = "";//スマートダッシュボードにアームのデータを送信するための変数
     //コントローラーの△ボタンを押すとアームが上がる
     if(controller.getRawButton(4)){
-      right_arm.set(1.0);
-      left_arm.set(-1.0);
-      arm_output_data = "arm_forward_rotation";
+      right_arm.set(0.5);
+      left_arm.set(-0.5);
     }
     //コントローラーの×ボタンを押すとアームが下がる
     else if(controller.getRawButton(3)){
-      right_arm.set(-1.0);
-      left_arm.set(1.0);
-      arm_output_data = "arm_backward_rotation";
+      right_arm.set(-0.5);
+      left_arm.set(0.5);
     }
     //それ以外の場合、停止
     else{
       right_arm.set(0.0);
       left_arm.set(0.0);
-      arm_output_data = "arm_stop";
     }
-    //スマートダッシュボードにアームのデータを送信
-    SmartDashboard.putString("arm_data", arm_output_data);
 //############################################################################### 編集箇所ここまで (編集者:池田) ###############################################################################
     //Amp -0.05 Bottom 0.4 Top
     //IntakeSource 0.4 Bottom, -0.4
