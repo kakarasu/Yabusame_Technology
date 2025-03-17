@@ -47,8 +47,8 @@ public class Robot extends TimedRobot
     return instance;
   }
 
-  private SparkMax right_arm=new SparkMax(17, SparkMax.MotorType.kBrushless);
-  private SparkMax left_arm=new SparkMax(16, SparkMax.MotorType.kBrushless);
+  private SparkMax right_arm=new SparkMax(18, SparkMax.MotorType.kBrushless);
+  private SparkMax left_arm=new SparkMax(30, SparkMax.MotorType.kBrushless);
   //private SparkMax intake=new SparkMax(17, SparkMax.MotorType.kBrushless);
   //private SparkMax rollerOutTop=new SparkMax(16, SparkMax.MotorType.kBrushless);
   //private SparkMax rollerOutBottom=new SparkMax(18, SparkMax.MotorType.kBrushless);
