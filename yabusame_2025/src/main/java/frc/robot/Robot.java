@@ -33,7 +33,7 @@ public class Robot extends TimedRobot
   private static Robot   instance;
   //private        Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  public RobotContainer m_robotContainer;
 
   private Timer disabledTimer;
 
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot
   }
 
   private SparkMax right_arm=new SparkMax(18, SparkMax.MotorType.kBrushless);
-  private SparkMax left_arm=new SparkMax(30, SparkMax.MotorType.kBrushless);
+  private SparkMax left_arm=new SparkMax(17, SparkMax.MotorType.kBrushless);
   //private SparkMax intake=new SparkMax(17, SparkMax.MotorType.kBrushless);
   //private SparkMax rollerOutTop=new SparkMax(16, SparkMax.MotorType.kBrushless);
   //private SparkMax rollerOutBottom=new SparkMax(18, SparkMax.MotorType.kBrushless);
@@ -61,11 +61,26 @@ public class Robot extends TimedRobot
   {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-
+    System.out.println("1");
+    try{
+      m_robotContainer = new RobotContainer();
+      System.out.println("999");
+    }catch(Exception e){
+      System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW in robotInit in RobotContainer");
+      System.out.println("");
+      e.printStackTrace();
+    }
+    System.out.println("8");
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
-    // immediately when disabled, but then also let it be pushed more 
+   // immediately when disabled, but then also let it be pushed more 
+   try{
     disabledTimer = new Timer();
+   }catch(Exception e){
+    System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW in robotInit in Timer");
+    System.out.println("");
+    e.printStackTrace();
+  }
+    System.out.println("9");
   }
 
   /**
@@ -91,7 +106,10 @@ public class Robot extends TimedRobot
   @Override
   public void disabledInit()
   {
-    m_robotContainer.setMotorBrake(true);
+    if(m_robotContainer != null)
+    {
+      m_robotContainer.setMotorBrake(true);
+    }
     disabledTimer.reset();
     disabledTimer.start();
   }
@@ -101,7 +119,9 @@ public class Robot extends TimedRobot
   {
     if (disabledTimer.hasElapsed(Constants.DrivebaseConstants.WHEEL_LOCK_TIME))
     {
-      m_robotContainer.setMotorBrake(false);
+      if(m_robotContainer != null){
+        m_robotContainer.setMotorBrake(false);
+      }
       disabledTimer.stop();
     }
   }
@@ -112,8 +132,14 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    m_robotContainer.setDriveMode();
-    m_robotContainer.setMotorBrake(true);
+    if(m_robotContainer != null)
+    {
+      m_robotContainer.setDriveMode();
+      m_robotContainer.setMotorBrake(true);
+    }
+    else{
+      System.out.println("m_robotContainer is null");
+    }
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     //// schedule the autonomous command (example)
     //if (m_autonomousCommand != null)
@@ -142,8 +168,14 @@ public class Robot extends TimedRobot
     //{
     //  m_autonomousCommand.cancel();
     //}
-    m_robotContainer.setDriveMode();
-    m_robotContainer.setMotorBrake(true);
+    if(m_robotContainer != null)
+    {
+      m_robotContainer.setDriveMode();
+      m_robotContainer.setMotorBrake(true);
+    }
+    else{
+      System.out.println("m_robotContainer is null");
+    }
 
   }
 
@@ -154,13 +186,13 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
 //############################################################################### 編集箇所 (手動モード アーム) ###############################################################################
-    //コントローラーの△ボタンを押すとアームが上がる
+  //  //コントローラーのYボタンを押すとアームが上がる
     if(controller.getRawButton(4)){
       right_arm.set(0.5);
       left_arm.set(-0.5);
     }
-    //コントローラーの×ボタンを押すとアームが下がる
-    else if(controller.getRawButton(3)){
+    //コントローラーのAタンを押すとアームが下がる
+    else if(controller.getRawButton(1)){
       right_arm.set(-0.5);
       left_arm.set(0.5);
     }

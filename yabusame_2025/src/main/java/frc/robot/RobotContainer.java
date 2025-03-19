@@ -41,8 +41,9 @@ public class RobotContainer
   public RobotContainer()
   {
     // Configure the trigger bindings
+    System.out.println("2");
     configureBindings();
-
+    System.out.println("3");
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
                                                                    () -> -MathUtil.applyDeadband(driverXbox.getLeftY(),
                                                                                                 OperatorConstants.LEFT_Y_DEADBAND),
@@ -54,6 +55,7 @@ public class RobotContainer
                                                                    driverXbox.getHID()::getAButtonPressed,
                                                                    driverXbox.getHID()::getXButtonPressed,
                                                                    driverXbox.getHID()::getBButtonPressed);
+        System.out.println("4");
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -65,7 +67,7 @@ public class RobotContainer
         () ->  driverXbox.getHID().getRawButton(7) ? -driverXbox.getLeftX()*0.4: -driverXbox.getLeftX()*1,
         () -> -driverXbox.getRightX(),
         () -> -driverXbox.getRightY());
-
+    System.out.println("5");
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
     // controls are front-left positive
@@ -81,9 +83,10 @@ public class RobotContainer
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> driverXbox.getRawAxis(2));
-
+    System.out.println("6");
     drivebase.setDefaultCommand(
         !RobotBase.isSimulation() ? (driverXbox.getHID().getRawButton(8) ? driveFieldOrientedDirectAngle : closedAbsoluteDriveAdv) : driveFieldOrientedDirectAngleSim);
+    System.out.println("7");
   }
 
   /**
