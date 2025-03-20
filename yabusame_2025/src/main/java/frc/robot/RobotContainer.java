@@ -35,6 +35,17 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandXboxController driverXbox = new CommandXboxController(0);
 
+  // Applies deadbands and inverts controls because joysticks
+    // are back-right positive while robot
+    // controls are front-left positive
+    // left stick controls translation
+    // right stick controls the desired angle NOT angular rotation
+    Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
+        () ->  driverXbox.getHID().getRawButton(7) ? -driverXbox.getLeftY()*0.4: -driverXbox.getLeftY()*1,
+        () ->  driverXbox.getHID().getRawButton(7) ? -driverXbox.getLeftX()*0.4: -driverXbox.getLeftX()*1,
+        () -> -driverXbox.getRightX(),
+        () -> -driverXbox.getRightY());
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -57,16 +68,7 @@ public class RobotContainer
                                                                    driverXbox.getHID()::getBButtonPressed);
         System.out.println("4");
 
-    // Applies deadbands and inverts controls because joysticks
-    // are back-right positive while robot
-    // controls are front-left positive
-    // left stick controls translation
-    // right stick controls the desired angle NOT angular rotation
-    Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
-        () ->  driverXbox.getHID().getRawButton(7) ? -driverXbox.getLeftY()*0.4: -driverXbox.getLeftY()*1,
-        () ->  driverXbox.getHID().getRawButton(7) ? -driverXbox.getLeftX()*0.4: -driverXbox.getLeftX()*1,
-        () -> -driverXbox.getRightX(),
-        () -> -driverXbox.getRightY());
+    
     System.out.println("5");
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -118,7 +120,7 @@ public class RobotContainer
 
   public void setDriveMode()
   {
-    //drivebase.setDefaultCommand();
+    drivebase.setDefaultCommand(driveFieldOrientedDirectAngle);
   }
 
   public void setMotorBrake(boolean brake)
